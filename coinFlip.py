@@ -62,6 +62,7 @@ print("3 flip Streak: %s"%(numberOf3Streaks/100))
 print("2 flip Streak: %s"%(numberOf2Streaks/100))
 
 # Output suggested by a commenter that for an actual percentage, one has to calculate the number of tests performed in the experiment.
+# Formatting of outputted number is rounded to 3 decimal places.
 print('Chance of a 6 flip streak: {:.3f} %'.format(numberOf6Streaks / (100 * tests))) # We want a percentage of streaks, not the number of streaks themself
 print('Chance of a 5 flip streak: {:.3f} %'.format(numberOf5Streaks / (100 * tests))) # We want a percentage of streaks, not the number of streaks themself
 print('Chance of a 4 flip streak: {:.3f} %'.format(numberOf4Streaks / (100 * tests))) # We want a percentage of streaks, not the number of streaks themself
