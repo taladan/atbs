@@ -4,6 +4,7 @@
 
 import random, time, copy
 from os import system, name
+from clearScreen import clear
 WIDTH = 0
 HEIGHT = 0
 steps = 0
@@ -13,13 +14,13 @@ nextCells = [] # Needed for storing the cells of the board
 run = 1
 runs = []
 
-def clear():
-    # Windows
-    if name == 'nt':
-        _ = system('cls')
-    # Mac/*Nix
-    else:
-        _ = system('clear')
+# def clear():
+#     # Windows
+#     if name == 'nt':
+#         _ = system('cls')
+#     # Mac/*Nix
+#     else:
+#         _ = system('clear')
 
 def defineParameters():
     while True:
