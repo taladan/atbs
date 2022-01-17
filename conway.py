@@ -3,7 +3,7 @@
 
 
 import random, time, copy
-from os import system, name
+
 from clearScreen import clear
 WIDTH = 0
 HEIGHT = 0
