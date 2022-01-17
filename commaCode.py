@@ -13,16 +13,15 @@
 
 def commaCode(myList):
     accumulate = ""
-    # Empty list test
-    if myList == []:
+    if myList == []: # Empty list test
         return "The list is empty."
     if len(myList)==1: # Single item list test
         return myList[0]
     for i in range(len(myList)):
-        if myList[i] == myList[0]: # Nothing is prepended to the first item accumulated
+        if myList[i] == myList[0]: # Nothing is prepended to the first index accumulated
             accumulate = myList[i]
         elif myList[i] == myList[-1]: # If the current i is the last index in myList, add ', and' before concatenating the last index to the string
             accumulate = accumulate + ', and ' + myList[i]
         else:
             accumulate = accumulate + ', ' + myList[i] # add a comma and a space to indexes that aren't 0 or -1
-    return accumulate
+    return accumulate # Return the accumulated string
