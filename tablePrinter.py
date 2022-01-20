@@ -30,14 +30,14 @@ def printTable(table):
     row = 0
     column = 0
 
-    while column <= number_of_columns:
-        while row  < number_of_rows - 1:
-            width = max_column_widths[row]
+    while column <= number_of_columns: # Loop through the columns to print each row
+        while row  < number_of_rows - 1: # Print each word in the row, rjusted by the max width of the longest word in the row
+            width = max_column_widths[row] 
             print(table[row][column].rjust(width) + " ", end = '')
             row += 1
-        print('\n')
+        print('\n') # We need a newline separation between each row
         column += 1
-        row = 0
+        row = 0 # Reset the row counter
 
 if __name__ == '__main__':
     printTable(tableData)
