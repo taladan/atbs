@@ -21,7 +21,7 @@ passwordRegex = re.compile(r'''
     {8,}                # Quantify to 8 or more charatcers
     $)''', re.VERBOSE)  # Line end anchor, and re.VERBOSE for readability
 
-def is_strong_password(text):
+def is_strong_password(text: str) -> bool:
     try:
         return not passwordRegex.search(text) == None # If the password is None, return False, else True
     except AttributeError as e:

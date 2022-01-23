@@ -31,7 +31,7 @@ months = [
     ('November',(30,)),
     ('December',(31,))]
 
-def is_valid_date(text):
+def is_valid_date(text: str) -> bool:
     try:
         day, month, year = map(int,dateRegex.search(text).groups())
         return month <= 12 and day <= months[month][1][month == 2 and is_leap_year(year)]
@@ -39,7 +39,7 @@ def is_valid_date(text):
         print(e)
         return False
 
-def is_leap_year(year):
+def is_leap_year(year: int) -> bool:
     return year % 400 == 0 or (year % 4 == 0 and year % 100 != 0)
 
 if __name__ == '__main__':
