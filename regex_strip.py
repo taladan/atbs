@@ -27,3 +27,4 @@ if __name__ == '__main__':
 
     print(regex_strip('  ffffff  '))
     print(regex_strip('FOOBARbazFOOBAR','FOOBAR'))  
+    print(regex_strip("NonStrippableText"))
