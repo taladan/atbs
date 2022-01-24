@@ -30,9 +30,18 @@ CHEESE_COSTS = [.50, .55, .75, .75, .75]
 ADDITIONS = {'mayo': .10, 'mustard': .10, 'lettuce': .5, 'tomato':.25}
 
 def sandwich_maker():
-
     # start the order
     print("Thank you for ordering a PythonSandwich!  Let's get your order started:\n")
+    num_of_sandwiches = pyip.inputNum(prompt="How many sandwiches would you like to order today? ", min=1)
+    sandwiches = {}
+    total_cost = 0
+    for sandwich in range(num_of_sandwiches):
+        current_sandwich, cost=build_sandwich()
+        sandwiches[current_sandwich] = cost
+        total_cost += float(cost)
+    return (sandwiches, total_cost)
+
+def build_sandwich():
 
     # Set up some useful variables
     sandwich_type = ""
@@ -69,5 +78,19 @@ def sandwich_maker():
 
 
 if __name__ == '__main__':
-    sandwich, cost= sandwich_maker()
-    print(f"Great! You ordered a {sandwich}.  That total will be: ${cost}")
+    # sandwiches, cost= sandwich_maker()
+    order = sandwich_maker()
+    sandwiches = order[0]
+    cost = order[1]
+    print("Great!  Here's your order:\n")
+    max_sandwich_column_width = max(len(x) for x in sandwiches) + 2
+    max_cost_column_width = 10
+    print_width = max_sandwich_column_width + max_cost_column_width + 1
+    print('-' * print_width)
+    print("Sandwich Type:".ljust(max_sandwich_column_width)+'|', end='')
+    print("Cost:".rjust(max_cost_column_width))
+    for k,v in sandwiches.items():
+        print(k.ljust(max_sandwich_column_width) + '|' + v.rjust(max_cost_column_width) + '|')
+    print()
+    print('-' * print_width)
+    print(f"Your order comes to: {cost}")
