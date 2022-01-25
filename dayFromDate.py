@@ -39,7 +39,6 @@ def find_day(date: datetime) -> str:
     century_code = [code for code in GCCODE if code[0] == cc][0][1]
     # century_code_index = [code for code in GCCODE if code[0] == cc]
     # century_code = century_code_index[0][1]
-    print(century_code)
     # for code in range(len(GCCODE)):                                         # find the right century code
     #     if GCCODE[code][0] == cc:
     #         century_code = GCCODE[code][1]
