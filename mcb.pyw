@@ -6,6 +6,9 @@
 # Usage:    py mcb.pyw save <keyword>   - Saves clipboard to keyword.
 #           py mcb.pyw <keyword>        - Loads keyword to clipboard. 
 #           py mcb.pyw list             - Loads all keywords to clipboard
+#           py mcb.pyw delete <keyword> - Deletes specified keyword
+#           py mcb.pyw delete           - Deletes all keywords
+#           py mcb.pyw ? (or help)      - Prints this usage information
 
 
 # Goal:
@@ -35,10 +38,27 @@ import sys, pyperclip, shelve
 
 # Open our shelf file
 mcbShelf = shelve.open('mcb')
+usage = '''
+mcb.pyw -- Multi-Clipboard Help
+
+Usage:    
+    py mcb.pyw save <keyword>   - Saves clipboard to keyword.
+    py mcb.pyw <keyword>        - Loads keyword to clipboard. 
+    py mcb.pyw list             - Loads all keywords to clipboard
+    py mcb.pyw delete <keyword> - Deletes specified keyword
+    py mcb.pyw delete           - Deletes all keywords
+    py mcb.pyw ? (or help)      - Prints this usage information
+'''
 
 # Save clipboard content.
 if len(sys.argv) == 3 and sys.argv[1].lower() == 'save':
     mcbShelf[sys.argv[2]] = pyperclip.paste()
+elif len(sys.argv) == 3 and sys.argv[1].lower() == 'delete':
+    del mcbShelf[sys.argv[2]] 
+elif len(sys.argv) == 2 and sys.argv[1].lower() == 'delete':
+    mcbShelf.clear()
+elif len(sys.argv) == 1 or (len(sys.argv) == 2 and sys.argv[1].lower() == 'help' or sys.argv[1] == '?'):
+    print(usage)
 elif len(sys.argv) == 2:
     # List keywords
     if sys.argv[1].lower() == 'list':
