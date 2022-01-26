@@ -88,6 +88,7 @@ if __name__ == '__main__':
     print_width = max_sandwich_column_width + max_cost_column_width + 1
     print('-' * print_width)
     print("Sandwich Type:".ljust(max_sandwich_column_width)+'|', end='')
+    print('-' * print_width)
     print("Cost:".rjust(max_cost_column_width))
     for k,v in sandwiches.items():
         print(k.ljust(max_sandwich_column_width) + '|' + v.rjust(max_cost_column_width) + '|')
