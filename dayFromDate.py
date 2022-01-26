@@ -36,9 +36,18 @@ def find_day(date: datetime) -> str:
     month = int(month)                                                      # MM
     day = int(day)                                                          # DD
 
+<<<<<<< HEAD
     century_code = [code for code in GCCODE if code[0] == cc][0][1]         # Get Cen Code from GCCODE as tuple and 
                                                                             # set value of [0][1] as century code
                                                                             # found this solution from https://stackoverflow.com/questions/2191699/find-an-element-in-a-list-of-tuples
+=======
+    century_code = [code for code in GCCODE if code[0] == cc][0][1]
+    # century_code_index = [code for code in GCCODE if code[0] == cc]
+    # century_code = century_code_index[0][1]
+    # for code in range(len(GCCODE)):                                         # find the right century code
+    #     if GCCODE[code][0] == cc:
+    #         century_code = GCCODE[code][1]
+>>>>>>> 454b0746fa9a518d9baf89fbd4fdcf538025fb10
 
     year_code = (yy + (yy//4)) % 7                                          # Year Code formula
     leap_year_code = 1 if is_leap_year(year) and month in [1,2] else 0      # Leap year code is 0 unless it's a leap year and month is Jan or Feb
