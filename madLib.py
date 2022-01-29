@@ -46,13 +46,14 @@ with open(choice.lower() + '.mdlib', 'r') as madlib:
     madlib_title, madlib_text = madlib.readlines()
 
 # Gather prompts from file and format for gathering user input
+# TODO: Figure out why re.sub isn't working here for output.
 prompts = replaceableRegex.findall(madlib_text)
-responses = []
-for prompt in prompts:
-    prompt = prompt.strip('_')
+for pattern in prompts:
+    prompt = pattern.strip('_')
     prompt = re.sub("[()]","", prompt).title()
-    responses.append(pyip.inputStr(f"Pick a(n) {prompt}:\n"))
-
-print(responses)
-print(prompts)
-# TODO: Figure out a way to reintegrate the user responses back into the text in the proper order.
+    repl = pyip.inputStr(f"Pick a(n) {prompt}:\n")
+    output = re.sub(pattern, repl, madlib_text, count=1)
+    print(f"{pattern=}")
+    print(f"{repl=}")
+    print(f"{madlib_text=}")
+    print(f"{output=}")
