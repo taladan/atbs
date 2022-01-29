@@ -12,6 +12,7 @@ from pathlib import Path
 import os, sys, re
 import pyinputplus as pyip
 
+# Change your parent_dir to match your local file structure, and place the madlibs directory in it.
 parent_dir = Path('/home/taladan/programs/mypy/atbs')
 madlibs_dir = Path('madlibs')
 full_path = parent_dir / madlibs_dir
