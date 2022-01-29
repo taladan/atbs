@@ -19,7 +19,7 @@ madlibs_files = []
 
 # Regex to search for CAPPED words in parenthesis including the characters ', -, 
 # any digits 0-9 and preceeded by any number of _ characters and zero or more spaces.
-replaceableRegex = re.compile(r'(_+ *\([A-Z \-\d\']*\))')
+replaceableRegex = re.compile('(_+ *\([A-Z \-\d\']*\))')
 
 # If the madlibs directory doesn't exist, notify and gracefully exit.
 if not full_path.exists():
@@ -50,9 +50,11 @@ with open(choice.lower() + '.mdlib', 'r') as madlib:
 prompts = replaceableRegex.findall(madlib_text)
 for pattern in prompts:
     prompt = pattern.strip('_')
-    prompt = re.sub("[()]","", prompt).title()
+    prompt = re.sub("[\(\)]","", prompt).title()
     repl = pyip.inputStr(f"Pick a(n) {prompt}:\n")
+    pattern = re.escape(pattern)
     madlib_text = re.sub(pattern, repl, madlib_text, count=1)
-    print(f"{pattern=}")
-    print(f"{repl=}")
-    print(f"{madlib_text=}")
+
+print(title)
+print('\n\n')
+print(madlib_text)
