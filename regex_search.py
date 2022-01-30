@@ -16,12 +16,23 @@
 # to the screen.
 
 # Imports
-import magic
 import os
 import re
 import sys
-from pathlib import Path
 
+try:
+    from pathlib import Path
+except ImportError:
+    print('''This program requires pathlib to be installed:
+                'pip install pathlib'
+                ''')
+
+try:
+    import magic
+except ImportError:
+    print('''This program requires Python-magic to be installed:
+                'pip install Python-magic'
+                ''')
 usage =  '''
 Usage:
 
