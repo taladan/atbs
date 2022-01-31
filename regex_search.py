@@ -1,4 +1,4 @@
-#! python
+#!bin/python
 #
 # regex_search.py
 # Usage:
