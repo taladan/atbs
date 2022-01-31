@@ -33,18 +33,25 @@ except ImportError:
     print('''This program requires Python-magic to be installed:
                 'pip install Python-magic'
                 ''')
-usage =  '''
-Usage:
-
-    regex_search.py [path] "expression"
-
-Path is optional. If no path is included, the current
-working directory is searched. Note: the regular expression 
-searched for must be surrounded by quotes to parse correctly.
-'''
 
 previous_directory = Path.cwd()                                     # Starting directory
 mime = magic.Magic(mime=True)                                       # We will determine filetype with PythonMagic
+
+# Handle cli arguments
+numArgs = len(sys.argv)
+enoughArgs = numArgs >= 2
+helpRequested = enoughArgs and sys.argv[1].lower() in ['?', 'help', '--help', '-h', '-help', 'h']
+
+if not enoughArgs or helpRequested:
+    print('''
+    Usage:
+        regex_search.py [path] "expression"
+
+        Path is optional. If no path is included, the current
+        working directory is searched. Note: the regular expression 
+        searched for must be surrounded by quotes to parse correctly.
+    ''')
+    sys.exit()
 
 # Parse sys.argv for path and regex pattern
 if len(sys.argv) == 3 and Path(sys.argv[1]).exists():               # Path included & is valid
@@ -57,9 +64,6 @@ if len(sys.argv) == 3 and Path(sys.argv[1]).exists():               # Path inclu
 elif len(sys.argv) == 3 and not Path(sys.argv[1]).exists():         # Path included but not valid
     print("Invalid input: Directory does not exist.  Exiting.")
     sys.exit()
-elif len(sys.argv) == 2 and sys.argv[1].lower() in ['?', 'help', '--help', '-h', '-help', 'h']:      # help
-    print(usage)
-    sys.exit()
 elif len(sys.argv) == 2:                                            # No path included
     try:
         userRegex = re.compile(sys.argv[1]) 
@@ -71,11 +75,17 @@ elif len(sys.argv) < 2:                                             # No path or
     print(usage)
     sys.exit()
 
+# Generator function to yield only files, not directories
+def files(path):
+    for file in os.listdir(path):
+        if os.path.isfile(os.path.join(path,file)):
+            yield file
+
 # let's work within the directory itself.
 os.chdir(search_directory)
 
 # Gather files to iterate through or error if there are no text files
-text_files = [f for f in os.scandir(Path.cwd()) if mime.from_file(f.name) == "text/plain"]
+text_files = [f for f in files(Path.cwd()) if mime.from_file(f) == "text/plain"]
 if len(text_files) == 0:
     print(f"There are no text files to search in {search_directory}.  Exiting")
     sys.exit()
