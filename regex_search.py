@@ -54,25 +54,20 @@ if not enoughArgs or helpRequested:
     sys.exit()
 
 # Parse sys.argv for path and regex pattern
-if len(sys.argv) == 3 and Path(sys.argv[1]).exists():               # Path included & is valid
-    search_directory = Path(sys.argv[1])
-    try:
-        userRegex = re.compile(sys.argv[2])
-    except re.error:
-        print("Invalid regex pattern. Exiting.")
-        sys.exit()
-elif len(sys.argv) == 3 and not Path(sys.argv[1]).exists():         # Path included but not valid
+includesPath = numArgs == 3
+path = Path(sys.argv[1]) if includesPath else Path.cwd()
+regex = sys.argv[2] if includesPath else sys.argv[1]
+
+# Validate path
+if not path.exists():
     print("Invalid input: Directory does not exist.  Exiting.")
     sys.exit()
-elif len(sys.argv) == 2:                                            # No path included
-    try:
-        userRegex = re.compile(sys.argv[1]) 
-        search_directory = Path.cwd()
-    except re.error:                                                # Invalid regex
-        print("Invalid regex pattern.  Exiting.")
-        sys.exit()
-elif len(sys.argv) < 2:                                             # No path or regex included
-    print(usage)
+
+# Validate user regex
+try:
+    userRegex = re.compile(regex)
+except re.error:
+    print("Invalid regex pattern.  Exiting.")
     sys.exit()
 
 # Generator function to yield only files, not directories
@@ -81,10 +76,10 @@ def files(path):
         if os.path.isfile(os.path.join(path,file)):
             yield file
 
-# let's work within the directory itself.
+# work within the directory itself.
 os.chdir(search_directory)
 
-# Gather files to iterate through or error if there are no text files
+# iterate through files or error if there are no text files
 text_files = [f for f in files(Path.cwd()) if mime.from_file(f) == "text/plain"]
 if len(text_files) == 0:
     print(f"There are no text files to search in {search_directory}.  Exiting")
