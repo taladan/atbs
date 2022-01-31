@@ -54,8 +54,8 @@ if not enoughArgs or helpRequested:
     sys.exit()
 
 # Parse sys.argv for path and regex pattern
-includesPath = numArgs == 3
-path = Path(sys.argv[1]) if includesPath else Path.cwd()
+includesPath = numArgs == 3                                         # True if 3 args, false otherwise
+path = Path(Path.cwd()/Path(sys.argv[1])) if includesPath else Path.cwd()
 regex = sys.argv[2] if includesPath else sys.argv[1]
 
 # Validate path
@@ -77,17 +77,17 @@ def files(path):
             yield file
 
 # work within the directory itself.
-os.chdir(search_directory)
+os.chdir(path)
 
 # iterate through files or error if there are no text files
 text_files = [f for f in files(Path.cwd()) if mime.from_file(f) == "text/plain"]
 if len(text_files) == 0:
-    print(f"There are no text files to search in {search_directory}.  Exiting")
+    print(f"There are no text files to search in {path}.  Exiting")
     sys.exit()
 
 for f in text_files:
     filename = f
-    f = search_directory/Path(f)
+    f = path/Path(f)
     with open(f, encoding='utf_8') as file:
         for line in enumerate(file.readlines()):
             match = userRegex.search(line[1])
